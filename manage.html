@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="manage.css"> <!-- Custom styling (if needed) -->
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Manage Inventory, Sales, and Customers</h1>
+
+        <h2>Inventory</h2>
+        <div id="inventoryManage"></div>
+
+        <h2 class="mt-4">Sales</h2>
+        <div id="salesManage"></div>
+
+        <h2 class="mt-4">Customers</h2>
+        <div id="customersManage"></div>
+    </div>
+
+    <script>
+        // Display and manage inventory
+        function displayManageInventory() {
+            let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+            let html = `
+                <h3>Manage Inventory</h3>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            inventory.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td>${item.product}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.price}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editInventory(${index})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="removeInventory(${index})">Remove</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            document.getElementById('inventoryManage').innerHTML = html;
+        }
+
+        // Edit and update inventory item
+        function editInventory(index) {
+            let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+            let item = inventory[index];
+            let formHtml = `
+                <h3>Edit Inventory Item</h3>
+                <form id="editInventoryForm">
+                    <div class="form-group">
+                        <label for="editProduct">Product Name:</label>
+                        <input type="text" class="form-control" id="editProduct" value="${item.product}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editQuantity">Quantity:</label>
+                        <input type="number" class="form-control" id="editQuantity" value="${item.quantity}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPrice">Price:</label>
+                        <input type="number" class="form-control" id="editPrice" value="${item.price}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelEditInventory()">Cancel</button>
+                </form>
+            `;
+            document.getElementById('inventoryManage').innerHTML = formHtml;
+            document.getElementById('editInventoryForm').onsubmit = function(e) {
+                e.preventDefault();
+                item.product = document.getElementById('editProduct').value;
+                item.quantity = document.getElementById('editQuantity').value;
+                item.price = document.getElementById('editPrice').value;
+                inventory[index] = item;
+                localStorage.setItem('inventory', JSON.stringify(inventory));
+                displayManageInventory();
+            };
+        }
+
+        function cancelEditInventory() {
+            displayManageInventory();
+        }
+
+        function removeInventory(index) {
+            let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+            inventory.splice(index, 1);
+            localStorage.setItem('inventory', JSON.stringify(inventory));
+            displayManageInventory();
+        }
+
+        // Display and manage sales
+        function displayManageSales() {
+            let sales = JSON.parse(localStorage.getItem('sales')) || [];
+            let html = `
+                <h3>Manage Sales</h3>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Product Sold</th>
+                            <th>Quantity Sold</th>
+                            <th>Sale Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            sales.forEach((sale, index) => {
+                html += `
+                    <tr>
+                        <td>${sale.saleProduct}</td>
+                        <td>${sale.saleQuantity}</td>
+                        <td>${sale.salePrice}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editSales(${index})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="removeSales(${index})">Remove</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            document.getElementById('salesManage').innerHTML = html;
+        }
+
+        // Edit and update sales item
+        function editSales(index) {
+            let sales = JSON.parse(localStorage.getItem('sales')) || [];
+            let sale = sales[index];
+            let formHtml = `
+                <h3>Edit Sales Item</h3>
+                <form id="editSalesForm">
+                    <div class="form-group">
+                        <label for="editSaleProduct">Product Sold:</label>
+                        <input type="text" class="form-control" id="editSaleProduct" value="${sale.saleProduct}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editSaleQuantity">Quantity Sold:</label>
+                        <input type="number" class="form-control" id="editSaleQuantity" value="${sale.saleQuantity}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editSalePrice">Sale Price:</label>
+                        <input type="number" class="form-control" id="editSalePrice" value="${sale.salePrice}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelEditSales()">Cancel</button>
+                </form>
+            `;
+            document.getElementById('salesManage').innerHTML = formHtml;
+            document.getElementById('editSalesForm').onsubmit = function(e) {
+                e.preventDefault();
+                sale.saleProduct = document.getElementById('editSaleProduct').value;
+                sale.saleQuantity = document.getElementById('editSaleQuantity').value;
+                sale.salePrice = document.getElementById('editSalePrice').value;
+                sales[index] = sale;
+                localStorage.setItem('sales', JSON.stringify(sales));
+                displayManageSales();
+            };
+        }
+
+        function cancelEditSales() {
+            displayManageSales();
+        }
+
+        function removeSales(index) {
+            let sales = JSON.parse(localStorage.getItem('sales')) || [];
+            sales.splice(index, 1);
+            localStorage.setItem('sales', JSON.stringify(sales));
+            displayManageSales();
+        }
+
+        // Display and manage customers
+        function displayManageCustomers() {
+            let customers = JSON.parse(localStorage.getItem('customers')) || [];
+            let html = `
+                <h3>Manage Customers</h3>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Contact</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            customers.forEach((customer, index) => {
+                html += `
+                    <tr>
+                        <td>${customer.name}</td>
+                        <td>${customer.contact}</td>
+                        <td>${customer.address}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editCustomer(${index})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="removeCustomer(${index})">Remove</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            document.getElementById('customersManage').innerHTML = html;
+        }
+
+        // Edit and update customer item
+        function editCustomer(index) {
+            let customers = JSON.parse(localStorage.getItem('customers')) || [];
+            let customer = customers[index];
+            let formHtml = `
+                <h3>Edit Customer</h3>
+                <form id="editCustomerForm">
+                    <div class="form-group">
+                        <label for="editName">Name:</label>
+                        <input type="text" class="form-control" id="editName" value="${customer.name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editContact">Contact:</label>
+                        <input type="text" class="form-control" id="editContact" value="${customer.contact}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAddress">Address:</label>
+                        <input type="text" class="form-control" id="editAddress" value="${customer.address}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancelEditCustomer()">Cancel</button>
+                </form>
+            `;
+            document.getElementById('customersManage').innerHTML = formHtml;
+            document.getElementById('editCustomerForm').onsubmit = function(e) {
+                e.preventDefault();
+                customer.name = document.getElementById('editName').value;
+                customer.contact = document.getElementById('editContact').value;
+                customer.address = document.getElementById('editAddress').value;
+                customers[index] = customer;
+                localStorage.setItem('customers', JSON.stringify(customers));
+                displayManageCustomers();
+            };
+        }
+
+        function cancelEditCustomer() {
+            displayManageCustomers();
+        }
+
+        function removeCustomer(index) {
+            let customers = JSON.parse(localStorage.getItem('customers')) || [];
+            customers.splice(index, 1);
+            localStorage.setItem('customers', JSON.stringify(customers));
+            displayManageCustomers();
+        }
+
+        // Initialize displays on page load
+        window.onload = function() {
+            displayManageInventory();
+            displayManageSales();
+            displayManageCustomers();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <script src="lang.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="prototype-banner">
+        <p data-translate="prototype">This is a prototype version of the platform. Some features may not be fully functional.</p>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html" data-translate="welcome">Main Page</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="inventory.html" data-translate="inventory">Inventory Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="sales.html" data-translate="sales">Sales Tracking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="customers.html" data-translate="customers">Customer Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="manage.html" data-translate="manage">Manage</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-translate="language">Language</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="setLanguage('en')">English</a>
+                        <a class="dropdown-item" href="#" onclick="setLanguage('sw')">Swahili</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 data-translate="welcome">Welcome to the Business management center</h1>
+        <p data-translate="description">This is your central hub for managing inventory, sales, customers, and other administrative tasks. Use the navigation bar to access different management sections.</p>
+        
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="inventory">Inventory Management</h5>
+                        <p class="card-text" data-translate="description">Manage your inventory by adding new products, updating quantities, and tracking prices.</p>
+                        <a href="inventory.html" class="btn btn-primary" data-translate="inventory">Go to Inventory</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="sales">Sales Tracking</h5>
+                        <p class="card-text" data-translate="description">Track your sales performance and review sales data.</p>
+                        <a href="sales.html" class="btn btn-primary" data-translate="sales">Go to Sales</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="customers">Customer Management</h5>
+                        <p class="card-text" data-translate="description">Manage customer information, including contact details and interactions.</p>
+                        <a href="customers.html" class="btn btn-primary" data-translate="customers">Go to Customers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" data-translate="manage">Manage</h5>
+                        <p class="card-text" data-translate="description">Access administrative functions and manage system settings.</p>
+                        <a href="manage.html" class="btn btn-primary" data-translate="manage">Go to Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

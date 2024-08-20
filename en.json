@@ -1,0 +1,8 @@
+{
+    "welcome": "Welcome to the Main Page",
+    "description": "This is your central hub for managing inventory, sales, customers, and other administrative tasks.",
+    "inventory": "Inventory Management",
+    "sales": "Sales Tracking",
+    "customers": "Customer Management",
+    "manage": "Manage"
+}

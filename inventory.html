@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">Inventory Management</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inventory Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="sales.html">Sales Tracking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="customers.html">Customer Management</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Container -->
+    <div class="container mt-4">
+        <h1 class="mb-4">Inventory Management</h1>
+        <!-- Inventory Form -->
+        <form id="inventoryForm" class="form-inline">
+            <div class="form-group mb-2 mr-2">
+                <label for="product" class="sr-only">Product Name</label>
+                <input type="text" class="form-control" id="product" name="product" placeholder="Product Name" required>
+            </div>
+            <div class="form-group mb-2 mr-2">
+                <label for="quantity" class="sr-only">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required>
+            </div>
+            <div class="form-group mb-2 mr-2">
+                <label for="price" class="sr-only">Price</label>
+                <input type="number" class="form-control" id="price" name="price" placeholder="Price" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Add to Inventory</button>
+        </form>
+        
+        <!-- Inventory Display -->
+        <div id="inventoryDisplay" class="mt-4"></div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Function to handle form submission
+        document.getElementById('inventoryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const product = document.getElementById('product').value;
+            const quantity = document.getElementById('quantity').value;
+            const price = document.getElementById('price').value;
+    
+            // Store the data in local storage
+            let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+            inventory.push({ product, quantity, price });
+            localStorage.setItem('inventory', JSON.stringify(inventory));
+    
+            // Clear the form
+            document.getElementById('product').value = '';
+            document.getElementById('quantity').value = '';
+            document.getElementById('price').value = '';
+    
+            alert('Product added to inventory');
+            displayInventory(); // Refresh the inventory display
+        });
+    
+        // Function to display inventory data
+        function displayInventory() {
+            const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+            let inventoryTable = `
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            inventory.forEach(item => {
+                inventoryTable += `
+                    <tr>
+                        <td>${item.product}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.price}</td>
+                    </tr>
+                `;
+            });
+            inventoryTable += '</tbody></table>';
+            document.getElementById('inventoryDisplay').innerHTML = inventoryTable;
+        }
+    
+        // Display inventory on page load
+        window.onload = displayInventory;
+    </script>
+</body>
+</html>

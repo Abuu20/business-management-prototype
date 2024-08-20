@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">Inventory Management</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inventory Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="sales.html">Sales Tracking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="customers.html">Customer Management</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Container -->
+    <div class="container mt-4">
+        <h1 class="mb-4">Customer Management</h1>
+        
+        <!-- Customer Form -->
+        <form id="customerForm" class="mb-4">
+            <div class="form-group">
+                <label for="customerName">Customer Name</label>
+                <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Enter customer name" required>
+            </div>
+            <div class="form-group">
+                <label for="customerContact">Customer Contact</label>
+                <input type="text" class="form-control" id="customerContact" name="customerContact" placeholder="Enter customer contact" required>
+            </div>
+            <div class="form-group">
+                <label for="customerEmail">Customer Email</label>
+                <input type="email" class="form-control" id="customerEmail" name="customerEmail" placeholder="Enter customer email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Customer</button>
+        </form>
+
+        <!-- Customer Display -->
+        <div id="customersDisplay"></div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Function to handle form submission
+        document.getElementById('customerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const customerName = document.getElementById('customerName').value;
+            const customerContact = document.getElementById('customerContact').value;
+            const customerEmail = document.getElementById('customerEmail').value;
+    
+            // Store the customer data in local storage
+            let customers = JSON.parse(localStorage.getItem('customers')) || [];
+            customers.push({ customerName, customerContact, customerEmail });
+            localStorage.setItem('customers', JSON.stringify(customers));
+    
+            // Clear the form
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerContact').value = '';
+            document.getElementById('customerEmail').value = '';
+    
+            alert('Customer added');
+            displayCustomers(); // Refresh the customer display
+        });
+    
+        // Function to display customer data
+        function displayCustomers() {
+            const customers = JSON.parse(localStorage.getItem('customers')) || [];
+            let customersTable = `
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            customers.forEach(customer => {
+                customersTable += `
+                    <tr>
+                        <td>${customer.customerName}</td>
+                        <td>${customer.customerContact}</td>
+                        <td>${customer.customerEmail}</td>
+                    </tr>
+                `;
+            });
+            customersTable += '</tbody></table>';
+            document.getElementById('customersDisplay').innerHTML = customersTable;
+        }
+    
+        // Display customers on page load
+        window.onload = displayCustomers;
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+body {
+    animation: backgroundChange 60s infinite;
+}
+
+@keyframes backgroundChange {
+    0% { background-color: #FFCCCC; }
+    25% { background-color: #CCCCFF; }
+    50% { background-color: #CCFFCC; }
+    75% { background-color: #FFFFCC; }
+    100% { background-color: #FFCCCC; }
+}
+
+.card {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    background-color: #f8f9fa;
+}
+
+.btn-primary {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.prototype-banner {
+    background-color: #ffc107;
+    color: #000;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    padding-top: 60px; /* Adjust to make space for the banner */
+}
+
+/* Optional: Customize the appearance on small screens */
+@media (max-width: 576px) {
+    .prototype-banner {
+        font-size: 0.9em;
+    }
+}
+
+
+/* Responsive Navbar */
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 10px;
+    }
+}

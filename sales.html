@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Tracking</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">Inventory Management</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inventory Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="sales.html">Sales Tracking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="customers.html">Customer Management</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Container -->
+    <div class="container mt-4">
+        <h1 class="mb-4">Sales Tracking</h1>
+        <!-- Sales Form -->
+        <form id="salesForm" class="form-inline">
+            <div class="form-group mb-2 mr-2">
+                <label for="saleProduct" class="sr-only">Product Sold</label>
+                <input type="text" class="form-control" id="saleProduct" name="saleProduct" placeholder="Product Sold" required>
+            </div>
+            <div class="form-group mb-2 mr-2">
+                <label for="saleQuantity" class="sr-only">Quantity Sold</label>
+                <input type="number" class="form-control" id="saleQuantity" name="saleQuantity" placeholder="Quantity Sold" required>
+            </div>
+            <div class="form-group mb-2 mr-2">
+                <label for="salePrice" class="sr-only">Sale Price</label>
+                <input type="number" class="form-control" id="salePrice" name="salePrice" placeholder="Sale Price" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Record Sale</button>
+        </form>
+        
+        <!-- Sales Display -->
+        <div id="salesDisplay" class="mt-4"></div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Function to handle form submission
+        document.getElementById('salesForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const saleProduct = document.getElementById('saleProduct').value;
+            const saleQuantity = document.getElementById('saleQuantity').value;
+            const salePrice = document.getElementById('salePrice').value;
+    
+            // Store the sales data in local storage
+            let sales = JSON.parse(localStorage.getItem('sales')) || [];
+            sales.push({ saleProduct, saleQuantity, salePrice });
+            localStorage.setItem('sales', JSON.stringify(sales));
+    
+            // Clear the form
+            document.getElementById('saleProduct').value = '';
+            document.getElementById('saleQuantity').value = '';
+            document.getElementById('salePrice').value = '';
+    
+            alert('Sale recorded');
+            displaySales(); // Refresh the sales display
+        });
+    
+        // Function to display sales data
+        function displaySales() {
+            const sales = JSON.parse(localStorage.getItem('sales')) || [];
+            let salesTable = `
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product Sold</th>
+                            <th>Quantity Sold</th>
+                            <th>Sale Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            sales.forEach(item => {
+                salesTable += `
+                    <tr>
+                        <td>${item.saleProduct}</td>
+                        <td>${item.saleQuantity}</td>
+                        <td>${item.salePrice}</td>
+                    </tr>
+                `;
+            });
+            salesTable += '</tbody></table>';
+            document.getElementById('salesDisplay').innerHTML = salesTable;
+        }
+    
+        // Display sales on page load
+        window.onload = displaySales;
+    </script>
+</body>
+</html>
