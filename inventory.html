@@ -1,114 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Management</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <title>Enhanced Inventory Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Header */
+        .header {
+            background-color: #343a40;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        /* Dashboard Overview */
+        .dashboard-overview {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s;
+        }
+
+        .overview-item {
+            background-color: #17a2b8;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .overview-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Card styling */
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Button styling */
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .btn-light {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-light:hover {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+/* get started  style*/
+.cta-section {
+    background: linear-gradient(to right, #28a745, #20c997);
+    color: #fff;
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.cta-section:hover {
+    transform: scale(1.02);
+}
+
+.cta-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-section .btn {
+    font-size: 1.25rem;
+    padding: 15px 30px;
+    border-radius: 50px;
+    background-color: #fff;
+    color: #28a745;
+    border: 2px solid #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cta-section .btn:hover {
+    background-color: #218838;
+    color: #fff;
+    border-color: #218838;
+}
+
+.loading-spinner {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.loading-spinner i {
+    font-size: 3rem;
+    color: #28a745;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-overview {
+                flex-direction: column;
+            }
+
+            .overview-item {
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">Inventory Management</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Inventory Management</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="sales.html">Sales Tracking</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="customers.html">Customer Management</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    
-    <!-- Container -->
-    <div class="container mt-4">
-        <h1 class="mb-4">Inventory Management</h1>
-        <!-- Inventory Form -->
-        <form id="inventoryForm" class="form-inline">
-            <div class="form-group mb-2 mr-2">
-                <label for="product" class="sr-only">Product Name</label>
-                <input type="text" class="form-control" id="product" name="product" placeholder="Product Name" required>
-            </div>
-            <div class="form-group mb-2 mr-2">
-                <label for="quantity" class="sr-only">Quantity</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required>
-            </div>
-            <div class="form-group mb-2 mr-2">
-                <label for="price" class="sr-only">Price</label>
-                <input type="number" class="form-control" id="price" name="price" placeholder="Price" required>
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Add to Inventory</button>
-        </form>
-        
-        <!-- Inventory Display -->
-        <div id="inventoryDisplay" class="mt-4"></div>
+    <div class="header">
+        <h1>Inventory Management Dashboard</h1>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-    <script>
-        // Function to handle form submission
-        document.getElementById('inventoryForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-    
-            const product = document.getElementById('product').value;
-            const quantity = document.getElementById('quantity').value;
-            const price = document.getElementById('price').value;
-    
-            // Store the data in local storage
-            let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-            inventory.push({ product, quantity, price });
-            localStorage.setItem('inventory', JSON.stringify(inventory));
-    
-            // Clear the form
-            document.getElementById('product').value = '';
-            document.getElementById('quantity').value = '';
-            document.getElementById('price').value = '';
-    
-            alert('Product added to inventory');
-            displayInventory(); // Refresh the inventory display
-        });
-    
-        // Function to display inventory data
-        function displayInventory() {
-            const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-            let inventoryTable = `
+    <div class="container mt-5">
+        <div class="dashboard-overview">
+            <div class="overview-item">
+                <h3 id="totalProducts">0</h3>
+                <p>Total Products</p>
+            </div>
+            <div class="overview-item">
+                <h3 id="lowStockAlerts">0</h3>
+                <p>Low Stock Alerts</p>
+            </div>
+            <div class="overview-item">
+                <h3 id="totalValue">$0.00</h3>
+                <p>Total Value</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Add New Product</h5>
+                <form id="productForm">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-control" id="category">
+                            <option value="Category A">Category A</option>
+                            <option value="Category B">Category B</option>
+                            <option value="Category C">Category C</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" placeholder="Enter quantity">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" id="price" placeholder="Enter price">
+                    </div>
+                    <button type="submit" class="btn btn-success">Add Product</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Product List</h5>
+                <input class="form-control mb-3" id="search" type="text" placeholder="Search products">
+                <select id="categoryFilter" class="form-control mb-3">
+                    <option value="">All Categories</option>
+                    <option value="Category A">Category A</option>
+                    <option value="Category B">Category B</option>
+                    <option value="Category C">Category C</option>
+                </select>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Product</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
                             <th>Quantity</th>
                             <th>Price</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-            `;
-            inventory.forEach(item => {
-                inventoryTable += `
-                    <tr>
-                        <td>${item.product}</td>
-                        <td>${item.quantity}</td>
-                        <td>${item.price}</td>
-                    </tr>
-                `;
+                    <tbody id="productList">
+                        <!-- Products will be displayed here -->
+                    </tbody>
+                </table>
+                <button onclick="printProducts()" class="btn btn-primary mt-3">Print Product List</button>
+            </div>
+        </div>
+
+        <div class="cta-section mt-5">
+            <h2>Optimize Your Inventory Management</h2>
+            <p>Contact us today to streamline your inventory processes and reduce costs.</p>
+            <a href="contact.html" class="btn">Get Started</a>
+        </div>
+        
+        <div class="loading-spinner">
+            <i class="fas fa-spinner"></i>
+            <p>Loading...</p>
+        </div>
+        
+    </div>
+
+    <script>
+        // JavaScript for storing and fetching data from localStorage and handling print function
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+
+            const updateOverview = () => {
+                const totalProducts = products.length;
+                const lowStockAlerts = products.filter(p => p.quantity < 5).length;
+                const totalValue = products.reduce((total, p) => total + (p.price * p.quantity), 0);
+
+                document.getElementById('totalProducts').innerText = totalProducts;
+                document.getElementById('lowStockAlerts').innerText = lowStockAlerts;
+                document.getElementById('totalValue').innerText = `$${totalValue.toFixed(2)}`;
+            }
+
+            const displayProducts = (filterCategory = '') => {
+                const productList = document.getElementById('productList');
+                productList.innerHTML = '';
+
+                products.filter(p => !filterCategory || p.category === filterCategory).forEach((product, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${product.name}</td>
+                        <td>${product.category}</td>
+                        <td>${product.quantity}</td>
+                        <td>$${product.price.toFixed(2)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" onclick="editProduct(${index})">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteProduct(${index})">Delete</button>
+                        </td>
+                    `;
+                    productList.appendChild(row);
+                });
+
+                updateOverview();
+            }
+
+            const addProduct = (name, category, quantity, price) => {
+                products.push({ name, category, quantity, price });
+                localStorage.setItem('products', JSON.stringify(products));
+                displayProducts();
+            }
+
+            document.getElementById('productForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const name = document.getElementById('productName').value;
+                const category = document.getElementById('category').value;
+                const quantity = parseInt(document.getElementById('quantity').value, 10);
+                const price = parseFloat(document.getElementById('price').value);
+
+                addProduct(name, category, quantity, price);
+
+                document.getElementById('productForm').reset();
             });
-            inventoryTable += '</tbody></table>';
-            document.getElementById('inventoryDisplay').innerHTML = inventoryTable;
+
+            document.getElementById('search').addEventListener('input', function (e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredProducts = products.filter(p => p.name.toLowerCase().includes(searchTerm));
+                displayProducts(document.getElementById('categoryFilter').value, filteredProducts);
+            });
+
+            document.getElementById('categoryFilter').addEventListener('change', function (e) {
+                displayProducts(e.target.value);
+            });
+
+            window.editProduct = (index) => {
+    const product = products[index];
+    document.getElementById('productName').value = product.name;
+    document.getElementById('category').value = product.category;
+    document.getElementById('quantity').value = product.quantity;
+    document.getElementById('price').value = product.price;
+
+    // Remove the product from the list so it can be re-added
+    products.splice(index, 1);
+    localStorage.setItem('products', JSON.stringify(products));
+    displayProducts();
+};
+
+window.deleteProduct = (index) => {
+    if (confirm('Are you sure you want to delete this product?')) {
+        products.splice(index, 1);
+        localStorage.setItem('products', JSON.stringify(products));
+        displayProducts();
+    }
+};
+
+// Print function to print all product details
+window.printProducts = () => {
+    let printWindow = window.open('', '', 'height=500, width=800');
+    printWindow.document.write('<html><head><title>Product List</title></head><body>');
+    printWindow.document.write('<h1>Product List</h1>');
+    printWindow.document.write('<table border="1" cellspacing="0" cellpadding="5"><thead><tr><th>Product Name</th><th>Category</th><th>Quantity</th><th>Price</th></tr></thead><tbody>');
+
+    products.forEach(product => {
+        printWindow.document.write('<tr><td>' + product.name + '</td><td>' + product.category + '</td><td>' + product.quantity + '</td><td>$' + product.price.toFixed(2) + '</td></tr>');
+    });
+
+    printWindow.document.write('</tbody></table>');
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+};
+
+// Initial load
+displayProducts();
+});
+
+//spin
+document.addEventListener('DOMContentLoaded', function () {
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+
+    const showSpinner = () => {
+        document.getElementById('loadingSpinner').style.display = 'block';
+    };
+
+    const hideSpinner = () => {
+        document.getElementById('loadingSpinner').style.display = 'none';
+    };
+
+    const updateOverview = () => {
+        const totalProducts = products.length;
+        const lowStockAlerts = products.filter(p => p.quantity < 5).length;
+        const totalValue = products.reduce((total, p) => total + (p.price * p.quantity), 0);
+
+        document.getElementById('totalProducts').innerText = totalProducts;
+        document.getElementById('lowStockAlerts').innerText = lowStockAlerts;
+        document.getElementById('totalValue').innerText = `$${totalValue.toFixed(2)}`;
+    };
+
+    const displayProducts = (filterCategory = '') => {
+        showSpinner();
+        const productList = document.getElementById('productList');
+        productList.innerHTML = '';
+
+        products.filter(p => !filterCategory || p.category === filterCategory).forEach((product, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${product.name}</td>
+                <td>${product.category}</td>
+                <td>${product.quantity}</td>
+                <td>$${product.price.toFixed(2)}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning" onclick="editProduct(${index})">Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteProduct(${index})">Delete</button>
+                </td>
+            `;
+            productList.appendChild(row);
+        });
+
+        hideSpinner();
+        updateOverview();
+    };
+
+    const addProduct = (name, category, quantity, price) => {
+        showSpinner();
+        products.push({ name, category, quantity, price });
+        localStorage.setItem('products', JSON.stringify(products));
+        displayProducts();
+        hideSpinner();
+    };
+
+    document.getElementById('productForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('productName').value;
+        const category = document.getElementById('category').value;
+        const quantity = parseInt(document.getElementById('quantity').value, 10);
+        const price = parseFloat(document.getElementById('price').value);
+
+        addProduct(name, category, quantity, price);
+        document.getElementById('productForm').reset();
+    });
+
+    document.getElementById('search').addEventListener('input', function (e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredProducts = products.filter(p => p.name.toLowerCase().includes(searchTerm));
+        displayProducts(document.getElementById('categoryFilter').value, filteredProducts);
+    });
+
+    document.getElementById('categoryFilter').addEventListener('change', function (e) {
+        displayProducts(e.target.value);
+    });
+
+    window.editProduct = (index) => {
+        const product = products[index];
+        document.getElementById('productName').value = product.name;
+        document.getElementById('category').value = product.category;
+        document.getElementById('quantity').value = product.quantity;
+        document.getElementById('price').value = product.price;
+
+        products.splice(index, 1);
+        localStorage.setItem('products', JSON.stringify(products));
+        displayProducts();
+    };
+
+    window.deleteProduct = (index) => {
+        if (confirm('Are you sure you want to delete this product?')) {
+            products.splice(index, 1);
+            localStorage.setItem('products', JSON.stringify(products));
+            displayProducts();
         }
-    
-        // Display inventory on page load
-        window.onload = displayInventory;
-    </script>
+    };
+
+    displayProducts();
+});
+
+
+</script>
 </body>
 </html>
