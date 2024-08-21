@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Management Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="d-flex justify-content-between align-items-center p-3 bg-dark text-white">
+            <h1>Business Management Dashboard</h1>
+            <div>
+                <button class="btn btn-light" id="notificationsBtn">Notifications <span id="notificationCount" class="badge bg-danger">0</span></button>
+                <button class="btn btn-light" id="logoutBtn">Logout</button>
+            </div>
+        </header>
+        <div class="row mt-4">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="dashboardOverview">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="manageSales">Sales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="manageInventory">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="manageEmployees">Employees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="reports">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="messages">Messages</a>
+                    </li>
+                    <li class="nav-item mt-3">
+                        <button class="btn btn-success w-100" id="manageProfitBtn" onclick="showProfitManagement()">Manage Profit</button>
+                    </li>
+                </ul>
+            </nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-4">
+                <!-- Dashboard Content -->
+                <div id="dashboardContent">
+                    <h2>Dashboard Overview</h2>
+                    <p>Welcome to the dashboard. Select a section from the sidebar.</p>
+                </div>
+
+                <!-- Profit Management Section -->
+                <div id="profitManagement" class="profit-management" style="display:none;">
+                    <h2>Manage Profit</h2>
+                    <div id="messageContainer"></div> <!-- Container for messages -->
+                    <div id="profitSection">
+                        <h3>Register New Stock</h3>
+                        <form id="stockForm">
+                            <div class="mb-3">
+                                <label for="itemName" class="form-label">Item Name</label>
+                                <input type="text" class="form-control" id="itemName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="itemPrice" class="form-label">Item Price</label>
+                                <input type="number" class="form-control" id="itemPrice" step="0.01" required>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="registerStock()">Register Stock</button>
+                        </form>
+                        <h3>Profit Calculation</h3>
+                        <div id="profitResults"></div>
+                    </div>
+                    <button class="btn btn-secondary mt-3" onclick="backToDashboard()">Back to Dashboard</button>
+                </div>
+
+                <div id="statistics" class="mt-4">
+                    <!-- Statistics will be loaded here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

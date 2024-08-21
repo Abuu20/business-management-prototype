@@ -1,0 +1,33 @@
+body {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+#forgotPasswordLink {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#forgotPasswordLink:hover {
+    text-decoration: underline;
+}
+
+.animated-message {
+    animation: fadeInOut 5s infinite;
+}
+
+.username-password {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    50% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
