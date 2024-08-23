@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - Reports</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <link rel="stylesheet" href="reports.css">
+</head>
+<body>
+    <header>
+        <h1>Student Management System - Reports</h1>
+    </header>
+    <div class="container">
+        <div class="report-selection">
+            <h2>Select Report Type</h2>
+            <button onclick="generateReport('performance')">Student Performance</button>
+            <button onclick="generateReport('attendance')">Attendance Report</button>
+            <button onclick="generateReport('financial')">Financial Summary</button>
+        </div>
+        <div id="reportContent" class="report-content"></div>
+        <div id="loadingIndicator" class="loading"></div>
+    </div>
+    <script src="reports.js"></script>
+</body>
+</html>

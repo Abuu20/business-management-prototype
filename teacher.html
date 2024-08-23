@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+    <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#teacherManagement">Teacher Management</a></li>
+                <li><a href="#scheduleManagement">Schedule Management</a></li>
+                <li><a href="#assignmentManagement">Assignment Management</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Teacher Management Section -->
+        <section id="teacherManagement">
+            <h2>Teacher Management</h2>
+            <form id="teacherForm">
+                <input type="hidden" id="teacherId">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+                <label for="contact">Contact:</label>
+                <input type="text" id="contact" required>
+                <label for="subjects">Subjects:</label>
+                <input type="text" id="subjects" required>
+                <button type="button" onclick="saveTeacher()">Save Teacher</button>
+                <button type="button" onclick="printContent('teacherList')">Print Teachers</button>
+            </form>
+            <h3>View Teachers</h3>
+            <input type="text" id="teacherSearch" placeholder="Search..." oninput="filterTeachers(this.value)">
+            <ul id="teacherList"></ul>
+        </section>
+
+        <!-- Add Teacher Modal -->
+        <div id="addTeacherModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('addTeacherModal')">&times;</span>
+                <h2>Add Teacher</h2>
+                <form id="addTeacherForm">
+                    <label for="teacherName">Name:</label>
+                    <input type="text" id="teacherName" required>
+                    <label for="teacherSubject">Subject:</label>
+                    <input type="text" id="teacherSubject" required>
+                    <button type="submit">Add Teacher</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Teacher Modal -->
+        <div id="editTeacherModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('editTeacherModal')">&times;</span>
+                <h2>Edit Teacher</h2>
+                <form id="editTeacherForm">
+                    <input type="hidden" id="editTeacherId">
+                    <label for="editTeacherName">Name:</label>
+                    <input type="text" id="editTeacherName" required>
+                    <label for="editTeacherSubject">Subject:</label>
+                    <input type="text" id="editTeacherSubject" required>
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Delete Teacher Confirmation Modal -->
+        <div id="deleteTeacherModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('deleteTeacherModal')">&times;</span>
+                <h2>Confirm Deletion</h2>
+                <p id="deleteTeacherMessage"></p>
+                <button onclick="confirmDeleteTeacher()">Yes</button>
+                <button onclick="closeModal('deleteTeacherModal')">No</button>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('successModal')">&times;</span>
+                <div class="success-icon">&#10003;</div>
+                <h2>Action Successful!</h2>
+                <p id="successMessage"></p>
+                <button onclick="closeModal('successModal')">OK</button>
+            </div>
+        </div>
+
+        <!-- Error Modal -->
+        <div id="errorModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('errorModal')">&times;</span>
+                <div class="error-icon">&#10007;</div>
+                <h2>Action Failed!</h2>
+                <p id="errorMessage"></p>
+                <button onclick="closeModal('errorModal')">OK</button>
+            </div>
+        </div>
+
+        <!-- Schedule Management Section -->
+        <section id="scheduleManagement">
+            <h2>Schedule Management</h2>
+            <form id="scheduleForm">
+                <input type="hidden" id="scheduleId">
+                <label for="teacher">Teacher ID:</label>
+                <input type="text" id="teacher" required>
+                <label for="date">Date:</label>
+                <input type="date" id="date" required>
+                <label for="time">Time:</label>
+                <input type="time" id="time" required>
+                <button type="button" onclick="saveSchedule()">Save Schedule</button>
+                <button type="button" onclick="printContent('scheduleList')">Print Schedules</button>
+            </form>
+            <h3>View Schedules</h3>
+            <input type="text" id="scheduleSearch" placeholder="Search..." oninput="filterSchedules(this.value)">
+            <ul id="scheduleList"></ul>
+        </section>
+
+        <!-- Assignment Management Section -->
+        <section id="assignmentManagement">
+            <h2>Assignment Management</h2>
+            <form id="assignmentForm">
+                <input type="hidden" id="assignmentId">
+                <label for="teacherAssignment">Teacher ID:</label>
+                <input type="text" id="teacherAssignment" required>
+                <label for="title">Title:</label>
+                <input type="text" id="title" required>
+                <label for="description">Description:</label>
+                <textarea id="description" required></textarea>
+                <button type="button" onclick="saveAssignment()">Save Assignment</button>
+                <button type="button" onclick="printContent('assignmentList')">Print Assignments</button>
+            </form>
+            <h3>View Assignments</h3>
+            <input type="text" id="assignmentSearch" placeholder="Search..." oninput="filterAssignments(this.value)">
+            <ul id="assignmentList"></ul>
+        </section>
+    </main>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="spinner" style="display: none;"></div>
+
+    <script src="teacher.js"></script>
+</body>
+</html>

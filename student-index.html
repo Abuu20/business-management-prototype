@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="student-styles.css">
+    <script src="student-scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Student Management System</h1>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#enrollment">Enrollment</a></li>
+                    <li><a href="#attendance">Attendance</a></li>
+                    <li><a href="#grades">Grades</a></li>
+                    <li><a href="#teachers">Teachers</a></li>
+                    <li><a href="#scheduling">Scheduling</a></li>
+                    <li><a href="#fees">Fees</a></li>
+                    <li><a href="#reports">Reports</a></li>
+                    <li><a href="students.html">Students</a></li>
+                    <li><a href="#backup">Backup & Restore</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section id="dashboard">
+                <h2>Dashboard</h2>
+                <div class="card">
+                    <h3>Welcome</h3>
+                    <p>Manage and oversee all aspects of the student management system from here.</p>
+                </div>
+            </section>
+            
+            <section id="enrollment" class="module">
+                <h2>Student Enrollment</h2>
+                <p>Register and manage student details efficiently.</p>
+                <a href="studentEnllonment.html" class="btn">Manage Enrollment</a>
+            </section>
+
+            <section id="attendance" class="module">
+                <h2>Attendance Management</h2>
+                <p>Track and report student attendance with ease.</p>
+                <a href="attendance.html" class="btn">Manage Attendance</a>
+            </section>
+
+            <section id="grades" class="module">
+                <h2>Grade Management</h2>
+                <p>Record and manage student grades and assessments.</p>
+                <a href="grades.html" class="btn">Manage Grades</a>
+            </section>
+
+            <section id="teachers" class="module">
+                <h2>Teacher Management</h2>
+                <p>Manage teacher information, schedules, and assignments.</p>
+                <a href="teacher.html" class="btn">Manage Teachers</a>
+            </section>
+
+            <section id="scheduling" class="module">
+                <h2>Class Scheduling</h2>
+                <p>Create and manage class timetables effectively.</p>
+                <a href="class-scheduling.html" class="btn">Manage Scheduling</a>
+            </section>
+
+            <section id="fees" class="module">
+                <h2>Fees Management</h2>
+                <p>Handle student fees, payments, and generate invoices.</p>
+                <a href="fees-management.html" class="btn">Manage Fees</a>
+            </section>
+
+            <section id="reports" class="module">
+                <h2>Reports</h2>
+                <p>Generate comprehensive reports on student performance, attendance, and financial summaries.</p>
+                <a href="reports.html" class="btn">Generate Reports</a>
+            </section>
+
+            <section id="backup" class="module">
+                <h2>Backup & Restore</h2>
+                <p>Ensure data security with backup and restore functionalities.</p>
+                <button onclick="backupData()" class="btn">Backup Data</button>
+                <button onclick="restoreData()" class="btn">Restore Data</button>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Student Management System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

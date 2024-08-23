@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Management</title>
+    <link rel="stylesheet" href="attendance.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Attendance Management System</h1>
+        <div id="loadingIndicator" class="loading-indicator">Loading...</div>
+        <div id="successMessage" class="success-message">Action completed successfully!</div>
+        <div class="attendance-form">
+            <h2>Record Attendance</h2>
+            <form id="attendanceForm">
+                <label for="studentName">Student Name:</label>
+                <input type="text" id="studentName" required>
+                <label for="attendanceDate">Date:</label>
+                <input type="date" id="attendanceDate" required>
+                <label for="status">Status:</label>
+                <select id="status" required>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                </select>
+                <button type="submit">Record Attendance</button>
+            </form>
+        </div>
+        <div class="attendance-records">
+            <h2>Attendance Records</h2>
+            <div id="recordContainer"></div>
+        </div>
+        <div class="reporting">
+            <h2>Generate Attendance Reports</h2>
+            <button id="generateReport">Generate Report</button>
+            <div id="reportContainer"></div>
+        </div>
+        <button id="exportCSV">Export Data to CSV</button>
+    </div>
+    <script src="attendance.js"></script>
+</body>
+</html>

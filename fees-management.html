@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Fees Management</title>
+    <link rel="stylesheet" href="fees-management.css">
+</head>
+<body>
+    <header>
+        <h1>Student Fees Management System</h1>
+    </header>
+    <div class="container">
+        <div class="form-group">
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="studentId" placeholder="Enter Student ID">
+        </div>
+        <div class="form-group">
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" placeholder="Enter Student Name">
+        </div>
+        <div class="form-group">
+            <label for="feeAmount">Fee Amount:</label>
+            <input type="number" id="feeAmount" placeholder="Enter Fee Amount">
+        </div>
+        <div class="form-group">
+            <label for="paymentDate">Payment Date:</label>
+            <input type="date" id="paymentDate">
+        </div>
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status">
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button onclick="saveFee()">Save Fee</button>
+            <button onclick="generateInvoice()">Generate Invoice</button>
+        </div>
+        <div class="form-group">
+            <input type="text" id="searchInput" onkeyup="filterFees()" placeholder="Search for fees...">
+        </div>
+        <div id="feeList">
+            <ul></ul>
+        </div>
+        <div id="invoiceArea" class="invoice-container"></div>
+        <button id="invoiceDownloadButton" class="invoice-download-button" onclick="downloadInvoice()" style="display: none;">Download Invoice</button>
+        <div id="loadingIndicator" class="loading"></div>
+    </div>
+    <script src="fees-management.js"></script>
+</body>
+</html>

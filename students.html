@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <link rel="stylesheet" href="student.css">
+</head>
+<body>
+    <header>
+        <h1>Student List</h1>
+    </header>
+    
+    <main>
+        <div class="container">
+            <ul id="student-list">
+                <!-- Students will be dynamically added here -->
+            </ul>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Student Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const students = JSON.parse(localStorage.getItem('students')) || [];
+            const studentList = document.getElementById('student-list');
+
+            students.forEach(student => {
+                let li = document.createElement('li');
+                li.textContent = `${student.name} (${student.id})`;
+
+                // Add links to other modules (like reports, grades, etc.)
+                let reportLink = document.createElement('a');
+                reportLink.href = `report.html?id=${student.id}`;
+                reportLink.textContent = 'View Report';
+
+                // Append links and student name to the list item
+                li.appendChild(reportLink);
+                studentList.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
